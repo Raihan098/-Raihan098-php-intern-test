@@ -1,0 +1,24 @@
+// app/Models/Employee.php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+
+class Employee extends Model
+{
+    protected $fillable = [
+        'nomor',
+        'nama',
+        'jabatan',
+        'talahir',
+        'photo_upload_path',
+        'created_by',
+        'updated_by',
+    ];
+
+    public function getPhotoAttribute()
+    {
+        return Storage::disk('s3')->url($this->photo_upload_path);
+    }
+}
